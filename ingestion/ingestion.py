@@ -21,7 +21,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.embeddings import FastEmbedEmbeddings
 from langchain_qdrant import QdrantVectorStore
 from qdrant_client import QdrantClient
-from qdrant_client.models import Distance, VectorParams
+from qdrant_client.models import Distance, VectorParams, PayloadSchemaType
 
 from config import QDRANT_URL, QDRANT_API_KEY, COLLECTION_NAME, DEPARTMENTS
 
@@ -105,6 +105,13 @@ def main():
     client.create_collection(
         collection_name=COLLECTION_NAME,
         vectors_config=VectorParams(size=len(sample_vector), distance=Distance.COSINE),
+    )
+
+    print("Creating payload index on 'metadata.department' (required for RBAC filtering) ...")
+    client.create_payload_index(
+        collection_name=COLLECTION_NAME,
+        field_name="metadata.department",
+        field_schema=PayloadSchemaType.KEYWORD,
     )
 
     print("Step 4/4 — Embedding and uploading chunks to Qdrant ...")

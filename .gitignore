@@ -1,0 +1,27 @@
+# Environment / secrets
+.env
+*.env
+
+# Virtual environments
+venv/
+venv311/
+venv_eval/
+env/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Eval outputs (regenerated each run, no need to version-control)
+evals/ragas_results.csv

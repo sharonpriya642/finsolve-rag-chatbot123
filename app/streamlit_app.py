@@ -9,7 +9,27 @@ Run from the project root with:
     streamlit run app/streamlit_app.py
 """
 
+import os
 import streamlit as st
+
+# --- Secrets bridge -------------------------------------------------------
+# Locally, config.py reads secrets from a .env file via python-dotenv.
+# On Streamlit Community Cloud, secrets are entered in the app's "Secrets"
+# settings and exposed via st.secrets instead of a .env file. This bridge
+# copies anything found in st.secrets into the environment BEFORE config.py
+# is imported, so the exact same os.getenv() calls work in both places
+# without needing two different codebases.
+#
+# Locally there is no secrets.toml file at all, and accessing st.secrets in
+# that case raises StreamlitSecretNotFoundError rather than just being
+# empty -- so this whole block is wrapped in a try/except to fail silently
+# and fall through to .env when no secrets file exists.
+try:
+    for _key in ("GROQ_API_KEY", "QDRANT_URL", "QDRANT_API_KEY"):
+        if _key in st.secrets:
+            os.environ[_key] = st.secrets[_key]
+except Exception:
+    pass
 
 from rag_chain import answer_question
 from rbac.users import authenticate

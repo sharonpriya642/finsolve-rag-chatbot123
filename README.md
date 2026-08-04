@@ -2,7 +2,7 @@
 
 An internal company chatbot that answers questions from private company documents (finance, HR, marketing, engineering, and general policy), while enforcing **role-based access control**, **PII/scope guardrails**, and backed by an **automated evaluation suite**.
 
-Live demo: _add your Streamlit Cloud URL here_
+Live demo:https://finsolve-rag-chatbot123-noutpszd7btguh5q4agv3p.streamlit.app/
 
 ---
 

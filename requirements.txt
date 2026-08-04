@@ -1,0 +1,11 @@
+streamlit
+langchain
+langchain-community
+langchain-groq
+langchain-qdrant
+qdrant-client
+python-dotenv
+groq
+pandas
+tiktoken
+fastembed
